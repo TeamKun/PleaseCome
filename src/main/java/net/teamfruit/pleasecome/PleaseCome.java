@@ -100,10 +100,7 @@ public final class PleaseCome extends JavaPlugin {
                         .create()
                 );
             } else {
-                if (ticket.sender instanceof Player)
-                    ((Player) ticket.sender).sendActionBar(sender.getName() + " がTPしてきた");
-                else
-                    ticket.sender.sendMessage(sender.getName() + " がTPしてきた");
+                sendActionBarOrMessage(ticket.sender, sender.getName() + " がTPしてきた");
                 ticket.action.accept(player);
                 sender.sendMessage(new ComponentBuilder()
                         .append("[かめすたプラグイン] ").color(ChatColor.LIGHT_PURPLE)
@@ -200,13 +197,11 @@ public final class PleaseCome extends JavaPlugin {
                     public void run() {
                         long remainMillis = tpAt - System.currentTimeMillis();
                         long remainSec = TimeUnit.MILLISECONDS.toSeconds(remainMillis);
-                        ticket.targets.forEach(p -> p.sendActionBar(remainSec + "秒後にTPします。"));
+                        sendActionBarOrMessage(ticket.sender, remainSec + "秒後にTPしてきます");
+                        ticket.targets.forEach(p -> p.sendActionBar(remainSec + "秒後にTPします"));
                         if (remainMillis <= 0) {
                             cancel();
-                            if (ticket.sender instanceof Player)
-                                ((Player) ticket.sender).sendActionBar("TPしてきた");
-                            else
-                                ticket.sender.sendMessage("TPしてきた");
+                            sendActionBarOrMessage(ticket.sender, "TPしてきた");
                             ticket.targets.forEach(p -> {
                                 ticket.action.accept(p);
                                 p.sendMessage(new ComponentBuilder()
@@ -222,5 +217,12 @@ public final class PleaseCome extends JavaPlugin {
         }
 
         return true;
+    }
+
+    private static void sendActionBarOrMessage(CommandSender sender, String s) {
+        if (sender instanceof Player)
+            ((Player) sender).sendActionBar(s);
+        else
+            sender.sendMessage(s);
     }
 }

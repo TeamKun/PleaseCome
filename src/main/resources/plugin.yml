@@ -11,8 +11,13 @@ commands:
     permission: pleasecome.come
   come-optional:
     description: tpへの招待(任意)
-    usage: /come-optional <players> [to]
+    usage: /comeon <players> [to]
     permission: pleasecome.come
+    aliases:
+      - camon
+      - comeon
+      - c'mon
+      - come-on
   come-accept:
     description: tpへの招待
     usage: /come-accept <token>
