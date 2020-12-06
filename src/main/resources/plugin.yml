@@ -1,0 +1,31 @@
+name: PleaseCome
+version: ${project.version}
+main: net.teamfruit.pleasecome.PleaseCome
+api-version: 1.15
+authors: [Kamesuta]
+
+commands:
+  come:
+    description: tpへの招待(指定時間後強制TP)
+    usage: /come <players> [to]
+    permission: pleasecome.come
+  come-optional:
+    description: tpへの招待(任意)
+    usage: /come-optional <players> [to]
+    permission: pleasecome.come
+  come-accept:
+    description: tpへの招待
+    usage: /come-accept <token>
+    permission: pleasecome.accept
+  come-deny:
+    description: tp招待の拒否
+    usage: /come-deny <token>
+    permission: pleasecome.accept
+
+permissions:
+  pleasecome.come:
+    description: TPの招待を送る
+    default: op
+  pleasecome.accept:
+    description: 実際にTPする
+    default: true
